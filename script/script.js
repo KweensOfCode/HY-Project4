@@ -5,22 +5,20 @@ const app = {};
 app.returnFromZomato = [];
 
 // 1. do 5 calls 👌🏻
-// 2. remove duplicates in the returnFromZomato array 
-// 3. use Ky's list to filter from returnFromZomato into the four location arrays
-// 4. filter each location array based on positive, negative, neutral (based on price range - $, $$, $$$)
-// 5. show on DOM (style):
+// 2. use Ky's list to filter from returnFromZomato into the four location arrays
+// 3. hard copy in first informative message for user
+// 3. filter each location array based on positive, negative, neutral (based on price range - $, $$, $$$)
+// 4. show on DOM (style) - with a window popping up effect:
 // - featured_image
 //     - Name of restaurant
 //         - Address
-//         - URL
+//         - Phone number
+//         - URL (button to link to the website_URL)
 //         - **user_rating … aggregate_rating
-// 6. button to return to texting screen
+//         - "X" to close down the window popping up
 
 // an array of 100 restaurant results
 app.restaurants = [];
-
-// duplicates removed
-app.uniqueRestaurants = [];
 
 // app.downtownToronto = [];
 
@@ -53,7 +51,7 @@ app.calls = function(number) {
 app.receiveCalls = function() {
 
     // call to API happening five times, pushing promises to returnFromZomato each time
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i <= 80; i = i + 20) {
         app.returnFromZomato.push(app.calls(i));
     }
     // console.log(app.returnFromZomato);
@@ -70,10 +68,6 @@ app.receiveCalls = function() {
             // console.log(app.restaurants);
         });
 }
-
-app.removeDuplicates = function() {
-   
-};
 
 
 app.init = function () {
