@@ -53,7 +53,7 @@ app.calls = function(number) {
 app.receiveCalls = function() {
 
     // call to API happening five times, pushing promises to returnFromZomato each time
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i <= 80; i = i + 20) {
         app.returnFromZomato.push(app.calls(i));
     }
     // console.log(app.returnFromZomato);
@@ -61,13 +61,13 @@ app.receiveCalls = function() {
     // when the results from the calls are pushed...
     $.when(...app.returnFromZomato)
         .then((...results) => {
-            // console.log(results);
+            // console.log(...results);
             for (let i = 0; i < results.length; i++) {
                 // console.log(results[i][0].restaurants);
                 // spread operator "takes off the brackets" and gives us the individual objects
                 app.restaurants.push(...results[i][0].restaurants);
             }
-            // console.log(app.restaurants);
+            console.log(app.restaurants);
         });
 }
 
@@ -79,11 +79,6 @@ app.removeDuplicates = function() {
 app.init = function () {
     app.calls();
     app.receiveCalls();
-}
-
-app.init = function () {
-    // app.getText();
-    app.submit();
 }
 $(function () {
     app.init();

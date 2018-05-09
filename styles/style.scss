@@ -3,7 +3,7 @@
 @import "typography";
 
 body {
-   background-image: linear-gradient(to bottom, rgba(212, 81, 19,0.5) 20%, rgba(212, 81, 19,0.7)),url('../images/brickwall_@2X.png');
+  background-image: linear-gradient(to bottom, rgba(212, 81, 19,0.5) 20%, rgba(212, 81,19,0.7)),url('../images/brickwall_@2X.png');
 }
 .wrapper {
   max-width: 1600px;
@@ -12,20 +12,17 @@ body {
   flex-direction: row;
   align-items: center;
   margin: 0 auto;
-  // background-image: linear-gradient(to bottom, rgba(249,160,63,0.5) 20%, rgba(249,160,63,0.7)),url('../images/brickwall_@2X.png');
 }
-.main-header {
+.mainHeader {
   position: fixed;
   color: $orange;
   right: 0;
   top: 50px;
-  &--mirrored {
-    transform: rotate(180deg);
-    left: 25px;
-    bottom: 50px;
-  }
+  transform: rotate(180deg);
+  left: 25px;
+  bottom: 50px;
 }
-.inner-wrapper {
+.innerWrapper {
   width: 40%;
   margin: 0 auto;
   background: white;
@@ -35,7 +32,7 @@ body {
   position: relative;
   overflow-y: auto;
 }
-.contact-header {
+.contactHeader {
   background: rgba(248, 221, 164,0.6);
   // background: $beige;
   position: fixed;
@@ -70,7 +67,7 @@ body {
     left: 150px;
   }
 }
-.user-input {
+.userInput {
   position: fixed;
   bottom: 5vh;
   display: flex;
