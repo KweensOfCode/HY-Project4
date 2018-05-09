@@ -81,6 +81,10 @@ app.init = function () {
     app.receiveCalls();
 }
 
+app.init = function () {
+    // app.getText();
+    app.submit();
+}
 $(function () {
     app.init();
 });

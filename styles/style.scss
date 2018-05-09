@@ -1,3 +1,95 @@
 @import "setup";
-@import "typography";
 @import "utils";
+@import "typography";
+
+body {
+   background-image: linear-gradient(to bottom, rgba(212, 81, 19,0.5) 20%, rgba(212, 81, 19,0.7)),url('../images/brickwall_@2X.png');
+}
+.wrapper {
+  max-width: 1600px;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  // background-image: linear-gradient(to bottom, rgba(249,160,63,0.5) 20%, rgba(249,160,63,0.7)),url('../images/brickwall_@2X.png');
+}
+.main-header {
+  position: fixed;
+  color: $orange;
+  right: 0;
+  top: 50px;
+  &--mirrored {
+    transform: rotate(180deg);
+    left: 25px;
+    bottom: 50px;
+  }
+}
+.inner-wrapper {
+  width: 40%;
+  margin: 0 auto;
+  background: white;
+  height: 90vh;
+  padding: 100px 0 0 0;
+  box-shadow: 0 0 5px 1px $white;
+  position: relative;
+  overflow-y: auto;
+}
+.contact-header {
+  background: rgba(248, 221, 164,0.6);
+  // background: $beige;
+  position: fixed;
+  width: 40%;
+  margin: 0 auto;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  right: 0;
+  margin: 0;
+  padding: 20px;
+  z-index: 999;
+}
+.text {
+  position: relative;
+}
+.list {
+  list-style: none;
+  padding-bottom: 100px;
+}
+.txtMsg {
+  width: 60%;
+  background: $orange;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  color:$white;
+  &:nth-child(2n) {
+    background: lighten($yellow, 20);
+    color: $black;
+    position: relative;
+    left: 150px;
+  }
+}
+.user-input {
+  position: fixed;
+  bottom: 5vh;
+  display: flex;
+  width: 40%;
+  padding: 20px 10px;
+  background: rgba(248, 221, 164,0.6);  
+}
+.submitBtn {
+  background: $red;
+  border: 2px solid $red;
+  background: $red;
+  color: $white;
+  border-radius: 50%;
+  padding: 20px 15px;
+  margin: 5px 10px;
+}
+.firstInput {
+  flex: 1 0 80%;
+  background: $white;
+  border: 1px solid rgba(0,0,0,0.4);
+  padding: 10px 20px;
+}
