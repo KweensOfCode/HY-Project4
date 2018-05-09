@@ -17,9 +17,6 @@ app.zomato = function() {
             'user-key': '6abd2ae7eb0a9857f87a37c0d6bdeff3',
         },
     })
-    .then((res) => {
-        console.log(res);
-    })
     $.ajax({
         url: 'https://developers.zomato.com/api/v2.1/search',
         dataType: 'json',
@@ -35,9 +32,6 @@ app.zomato = function() {
         headers: {
             'user-key': '6abd2ae7eb0a9857f87a37c0d6bdeff3',
         },
-    })
-    .then((res) => {
-        console.log(res);
     })
     $.ajax({
         url: 'https://developers.zomato.com/api/v2.1/search',
@@ -55,9 +49,6 @@ app.zomato = function() {
             'user-key': '6abd2ae7eb0a9857f87a37c0d6bdeff3',
         },
     })
-        .then((res) => {
-            console.log(res);
-    })
     $.ajax({
         url: 'https://developers.zomato.com/api/v2.1/search',
         dataType: 'json',
@@ -73,9 +64,6 @@ app.zomato = function() {
         headers: {
             'user-key': '6abd2ae7eb0a9857f87a37c0d6bdeff3',
         },
-    })
-    .then((res) => {
-        console.log(res);
     })
     $.ajax({
         url: 'https://developers.zomato.com/api/v2.1/search',
@@ -93,9 +81,6 @@ app.zomato = function() {
             'user-key': '6abd2ae7eb0a9857f87a37c0d6bdeff3',
         },
     })
-        .then((res) => {
-            console.log(res);
-    })
     $.ajax({
         url: 'https://developers.zomato.com/api/v2.1/search',
         dataType: 'json',
@@ -112,17 +97,34 @@ app.zomato = function() {
             'user-key': '6abd2ae7eb0a9857f87a37c0d6bdeff3',
         },
     })
-    .then((res) => {
-        console.log(res);
-    })
 };
-
+app.submit = function() {
+    $('form').on('submit', function(e){
+        e.preventDefault();
+        let text = $('input[type=text]').val();        
+        app.getSentimentScore(text);
+    });
+};
+app.getSentimentScore = function(text) {
+    $.ajax({
+        url: 'https://api.dandelion.eu/datatxt/sent/v1',
+        data: {
+            token: 'bc77fbf397184fc1b069f3085e709f0d',
+            text: text,
+        },
+        dataType: 'jsonp',
+    }).then((res)=>console.log(res.sentiment.type, res.sentiment.score))
+}
+app.returnSentimentScore = function () {
+    get.SentimentScore();
+}
 app.getLocality = function() {
 
 }
 
 app.init = function () {
-    app.zomato();
+    // app.getText();
+    app.submit();
 }
 $(function () {
     app.init();
