@@ -15,74 +15,100 @@ app.returnFromZomato = [];
 //         - URL
 //         - **user_rating … aggregate_rating
 // 6. button to return to texting screen
-
 // an array of 100 restaurant results
 app.restaurants = [];
-
 // duplicates removed
 app.uniqueRestaurants = [];
-
-// app.downtownToronto = [];
-
+app.downtownToronto = [];
 // app.eastEndToronto = [];
-
 // app.westEndToronto = [];
-
 // app.northToronto = [];
 
+class Restaurant {
+	constructor(name, address,url,userRating) {
+		this.name = name;
+		this.address = address;
+		this.url = url;
+		this.userRating = userRating;
+	}
+}
 
 app.calls = function(number) {
-    return $.ajax({
-        url: "https://developers.zomato.com/api/v2.1/search",
-        dataType: "json",
-        method: "GET",
-        data: {
-            entity_id: 89,
-            entity_type: "city",
-            q: "Toronto",
-            cuisines: "73",
-            counter: 125,
-            start: number,
-        },
-        headers: {
-            "user-key": "ee3c8dde85aabb1ed3fc23bb743b2cc6",
-        },
-    });
+	return $.ajax({
+		url: "https://developers.zomato.com/api/v2.1/search",
+		dataType: "json",
+		method: "GET",
+		data: {
+			entity_id: 89,
+			entity_type: "city",
+			q: "Toronto",
+			cuisines: "73",
+			counter: 125,
+			start: number,
+		},
+		headers: {
+			"user-key": "ee3c8dde85aabb1ed3fc23bb743b2cc6",
+		},
+	});
 };
 
 app.receiveCalls = function() {
-
-    // call to API happening five times, pushing promises to returnFromZomato each time
-    for (let i = 0; i <= 80; i = i + 20) {
-        app.returnFromZomato.push(app.calls(i));
+// call to API happening five times, pushing promises to returnFromZomato each time
+	for (let i = 0; i <= 80; i = i + 20) {
+		app.returnFromZomato.push(app.calls(i));
     }
     // console.log(app.returnFromZomato);
-
     // when the results from the calls are pushed...
-    $.when(...app.returnFromZomato)
-        .then((...results) => {
-            // console.log(...results);
-            for (let i = 0; i < results.length; i++) {
-                // console.log(results[i][0].restaurants);
-                // spread operator "takes off the brackets" and gives us the individual objects
-                app.restaurants.push(...results[i][0].restaurants);
-            }
-            console.log(app.restaurants);
-        });
+		$.when(...app.returnFromZomato)
+			.then((...results) => {
+				// console.log(...results);
+				for (let i = 0; i < results.length; i++) {
+					// console.log(results[i][0].restaurants);
+					// spread operator "takes off the brackets" and gives us the individual objects
+					app.restaurants.push(...results[i][0].restaurants);
+				}
+			// console.log(app.restaurants);
+		});
 }
 
-app.removeDuplicates = function() {
-   
+app.getSentimentScore = function(text) {
+	$.ajax({
+		url: 'https://api.dandelion.eu/datatxt/sent/v1',	
+		data: {
+			token: 'bc77fbf397184fc1b069f3085e709f0d',
+			text: text,
+		},
+		dataType: 'jsonp',
+	})
+	.then((res) => console.log(res.sentiment.type, res.sentiment.score))
+}
+
+app.returnSentimentScore = function () {
+	get.SentimentScore(text);
+}
+
+app.submit = function() {
+	$('form').on('submit', function (e) {
+		e.preventDefault();
+		let text = $('input[type=text]').val();
+		app.getSentimentScore(text);
+		$('input[type=text]').val('');
+	});
 };
-
-
 app.init = function () {
-    app.calls();
-    app.receiveCalls();
+	app.calls();
+	app.receiveCalls();
+	app.submit();
 }
 $(function () {
-    app.init();
+	app.init();
 });
 
 
 
+newRestaurant = []
+app.filteredRestaurants = function() {
+	app.restaurants.forEach((restaurant) => {
+	newRestaurant.push(new Restaurant(restaurant.restaurant.name, restaurant.restaurant.location.address, restaurant.restaurant.url, restaurant.restaurant.user_rating.aggregate_rating))
+});
+}
