@@ -67,18 +67,37 @@ app.receiveCalls = function() {
                 // spread operator "takes off the brackets" and gives us the individual objects
                 app.restaurants.push(...results[i][0].restaurants);
             }
-            console.log(app.restaurants);
+            // console.log(app.restaurants);
         });
 }
 
-app.removeDuplicates = function() {
-   
+app.getSentimentScore = function(text) {
+	$.ajax({
+		url: 'https://api.dandelion.eu/datatxt/sent/v1',	
+		data: {
+			token: 'bc77fbf397184fc1b069f3085e709f0d',
+			text: text,
+		},
+		dataType: 'jsonp',
+	})
+	.then((res) => console.log(res.sentiment.type, res.sentiment.score))
+}
+
+app.returnSentimentScore = function () {
+	get.SentimentScore(text);
+}
+
+app.submit = function() {
+	$('form').on('submit', function (e) {
+		e.preventDefault();
+		let text = $('input[type=text]').val();
+		app.getSentimentScore(text);
+	});
 };
-
-
 app.init = function () {
     app.calls();
-    app.receiveCalls();
+		app.receiveCalls();
+		app.submit();
 }
 $(function () {
     app.init();
