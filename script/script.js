@@ -6,15 +6,9 @@ app.returnFromZomato = [];
 
 // 1. do 5 calls 👌🏻
 // 2. use Ky's list to filter from app.restaurants into the four location arrays 👌🏻
-// 3. hard copy in first informative message for user
-// 4. filter each location array based on positive, negative, neutral (based on price range - $, $$, $$$)
+// 3. hard copy in first informative message for user   ******
+// 4. filter each location array based on const score between -2 to 2    ******
 // 5. show on DOM (style) - with a window popping up effect, figure out all functionality:
-// - featured_image
-//     - Name of restaurant
-//         - Address
-//         - Phone number
-//         - URL (button to link to the website_URL)
-//         - **user_rating … aggregate_rating
 // 6. button to return to texting screen
 // 7. finish responsive testing 
 
@@ -25,6 +19,10 @@ app.restaurants = [];
 
 // filtered array
 app.downtownToronto = [];
+
+// app.downtownTorontoPrice1 = [];
+// app.downtownTorontoPrice2 = [];
+// app.downtownTorontoPrice3 = [];
 
 // downtown is the variable that holds the regex for filtering
 const downtown = new RegExp('Entertainment|Kensington|Fashion|Grange|Downtown|Church|Financial', 'gi');
@@ -46,19 +44,37 @@ app.northToronto = [];
 
 const northEnd = new RegExp('Hillcrest|Eglinton|Earlscourt|Davisville|York', 'gi');
 
+////////////////////////////////////////////////////////////////////////////////////
+
+// app.priceFilter = function(array) {
+//     for (let i = 0; i < array.length; i++) {
+//         if (array.priceRange === 3) {
+//             app.filteredRestaurants(app.downtownTorontoPrice3, array[i]);
+//         }; 
+//     }
+// }
+    
+// app.priceFilter(app.downtownToronto);
+// console.log(app.downtownTorontoPrice3); 
+
+
+
+
+
 class Restaurant {
-	constructor(featuredImage, name, address, url, userRating) {
+	constructor(featuredImage, name, address, url, userRating, priceRange) {
         this.featuredImage = featuredImage;
 		this.name = name;
 		this.address = address;
 		this.url = url;
-		this.userRating = userRating;
+        this.userRating = userRating;
+        this.priceRange = priceRange;
 	}
 }
 
 app.filteredRestaurants = function (array, array2) {
     array.push
-        (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating)) 
+        (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating, array2.restaurant.price_range)) 
 }
 
 app.calls = function(number) {
@@ -115,6 +131,9 @@ app.receiveCalls = function() {
 }
 
 // getting sentiment score
+
+let score = 0;
+
 app.getSentimentScore = function(text) {
 	$.ajax({
 		url: 'https://api.dandelion.eu/datatxt/sent/v1',	
@@ -124,11 +143,9 @@ app.getSentimentScore = function(text) {
 		},
 		dataType: 'jsonp',
 	})
-	.then((res) => console.log(res.sentiment.type, res.sentiment.score))
-}
-
-app.returnSentimentScore = function () {
-	get.SentimentScore(text);
+	.then((res) => {
+        score = score + res.sentiment.score;
+    })
 }
 
 app.submit = function() {
@@ -147,6 +164,7 @@ app.init = function () {
 	app.receiveCalls();
     app.submit(); 
 }
+
 $(function () {
 	app.init();
 });
