@@ -34,7 +34,6 @@ body {
 }
 .contactHeader {
   background: rgba(248, 221, 164,0.6);
-  // background: $beige;
   position: fixed;
   width: 40%;
   margin: 0 auto;
@@ -89,4 +88,49 @@ body {
   background: $white;
   border: 1px solid rgba(0,0,0,0.4);
   padding: 10px 20px;
+}
+.results {
+  position: fixed;
+  width: 40%;
+  top: 5vh;
+  bottom: 5vh;
+  margin: 0 auto;
+  z-index: 999;
+  background: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  display: none;
+  &__option {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 0 20px;
+    align-items: center;
+    &__image {
+      border: 5px solid $orange;
+      // border-radius: 50%;
+      margin: 10px 20px;
+      flex: 0 0 auto;
+    }
+    &__text {
+      flex:1 0 auto;
+      &--right {
+        text-align: right;
+      }
+    }
+  }
+}
+.btn {
+  color: $white;
+  background: $orange;
+  text-decoration: none;
+  padding: 10px 15px;
+  &--right{
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 }
