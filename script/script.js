@@ -5,7 +5,7 @@ const app = {};
 app.returnFromZomato = [];
 
 // 1. do 5 calls 👌🏻
-// 2. use Ky's list to filter from returnFromZomato into the four location arrays
+// 2. use Ky's list to filter from app.restaurants into the four location arrays
 // 3. hard copy in first informative message for user
 // 3. filter each location array based on positive, negative, neutral (based on price range - $, $$, $$$)
 // 4. show on DOM (style) - with a window popping up effect:
@@ -20,13 +20,14 @@ app.returnFromZomato = [];
 // an array of 100 restaurant results
 app.restaurants = [];
 
-// app.downtownToronto = [];
+// location arrays
+app.downtownToronto = [];
 
-// app.eastEndToronto = [];
+app.eastEndToronto = [];
 
-// app.westEndToronto = [];
+app.westEndToronto = [];
 
-// app.northToronto = [];
+app.northToronto = [];
 
 
 app.calls = function(number) {
@@ -59,7 +60,7 @@ app.receiveCalls = function() {
     // when the results from the calls are pushed...
     $.when(...app.returnFromZomato)
         .then((...results) => {
-            // console.log(results);
+            // console.log(...results);
             for (let i = 0; i < results.length; i++) {
                 // console.log(results[i][0].restaurants);
                 // spread operator "takes off the brackets" and gives us the individual objects
@@ -69,15 +70,20 @@ app.receiveCalls = function() {
         });
 }
 
+app.filterForLocations = function() {
+    app.downtownToronto = app.restaurants.filter(function(locality) {
+        if (locality === "Entertainment District" ||)
+    });
+}
+
+
+
+
+
 
 app.init = function () {
     app.calls();
     app.receiveCalls();
-}
-
-app.init = function () {
-    // app.getText();
-    app.submit();
 }
 $(function () {
     app.init();

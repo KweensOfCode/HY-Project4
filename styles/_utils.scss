@@ -1,12 +1,12 @@
 $blue: #097168;
 $black: #050505;
-$white: rgb(245, 245, 245);
-$orange: rgb(212, 81, 19);
+$white: #f5f5f5;
+$orange: #d45113;
 $yellow: #f9a03f;
 $beige: #f8dda4;
 $red: #f40000;
 
 @mixin fontSize ($sizeValue) {
-    font-size: $sizeValue * 1px;
-    font-size: $sizeValue/10 * 1rem;
+	font-size: $sizeValue * 1px;
+	font-size: $sizeValue/10 * 1rem;
 }
