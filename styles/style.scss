@@ -66,6 +66,31 @@ body {
     left: 150px;
   }
 }
+.animation {
+  background: rgba(249, 160, 63,0.5);
+  width: 10%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 20px;
+  border-radius: 50px;
+  position: fixed;
+  bottom: 22vh;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  box-shadow: 0 0 5px 1px $yellow;
+  & .fa{
+    animation: writing 1.2s 3;
+    position: relative;
+    text-shadow: 0 0 5px $white;
+  }
+  & .fa:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  & .fa:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+}
 .userInput {
   position: fixed;
   bottom: 5vh;
@@ -132,5 +157,30 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
+  }
+}
+@keyframes writing {
+  0% {
+    transform: scale(1);
+    top: 0;
+  }
+  25% {
+    bottom: 4px;
+    color: $yellow;
+  }
+  50% {
+    top: 4px;
+    bottom: 0;
+    color: $orange;
+    transform: scale(1.1);    
+  }
+  75% {
+    bottom: 4px;
+    // top: 0
+  }
+  100% {
+    transform: scale(1);
+    top: 0;
+    // bottom: 0;
   }
 }

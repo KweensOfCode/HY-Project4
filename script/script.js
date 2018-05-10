@@ -18,34 +18,23 @@ app.returnFromZomato = [];
 // 6. button to return to texting screen
 // 7. finish responsive testing 
 
-
 // an array of 100 restaurant results
 app.restaurants = [];
-
-
 // filtered array
 app.downtownToronto = [];
-
 // downtown is the variable that holds the regex for filtering
 const downtown = new RegExp('Entertainment|Kensington|Fashion|Grange|Downtown|Church|Financial', 'gi');
-
 // filtered array
 app.eastEndToronto = [];
-
 // eastEnd is the variable that holds the regex for filtering
 const eastEnd = new RegExp('Distillery|East|Lawrence|Beaches|Riverside', 'gi');
-
 // filtered array
 app.westEndToronto = [];
-
 // westEnd is the variable that holds the regex for filtering
 const westEnd = new RegExp('Brockton|Parkdale|Junction|Chinatown|Bloor West Village|Italy|Annex|Liberty|Dufferin|Runnymede|Seaton|Trinity|Beaconsfield|Roncesvalles', 'gi');
-
 // filtered array
 app.northToronto = [];
-
 const northEnd = new RegExp('Hillcrest|Eglinton|Earlscourt|Davisville|York', 'gi');
-
 class Restaurant {
 	constructor(featuredImage, name, address, url, userRating) {
         this.featuredImage = featuredImage;
@@ -55,7 +44,6 @@ class Restaurant {
 		this.userRating = userRating;
 	}
 }
-
 app.filteredRestaurants = function (array, array2) {
     array.push
         (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating)) 
@@ -79,7 +67,6 @@ app.calls = function(number) {
 		},
 	});
 };
-
 app.receiveCalls = function() {
 // call to API happening five times, pushing promises to returnFromZomato each time
 	for (let i = 0; i <= 80; i = i + 20) {
@@ -113,7 +100,7 @@ app.receiveCalls = function() {
             // console.log(app.northToronto);
 		});
 }
-
+let score = 0;
 // getting sentiment score
 app.getSentimentScore = function(text) {
 	$.ajax({
@@ -124,13 +111,11 @@ app.getSentimentScore = function(text) {
 		},
 		dataType: 'jsonp',
 	})
-	.then((res) => console.log(res.sentiment.type, res.sentiment.score))
+	.then((res) => {
+		score = score + res.sentiment.score;
+		console.log(res.sentiment.score);
+	})
 }
-
-app.returnSentimentScore = function () {
-	get.SentimentScore(text);
-}
-
 app.submit = function() {
 	$('form').on('submit', function (e) {
 		e.preventDefault();
@@ -141,11 +126,10 @@ app.submit = function() {
 };
 // end of getting sentiment score
 
-
 app.init = function () {
 	app.calls();
 	app.receiveCalls();
-    app.submit(); 
+  app.submit(); 
 }
 $(function () {
 	app.init();
