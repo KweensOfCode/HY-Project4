@@ -4,14 +4,6 @@ const app = {};
 // store info from zomato once returned, just promises
 app.returnFromZomato = [];
 
-// 1. do 5 calls 👌🏻
-// 2. use Ky's list to filter from app.restaurants into the four location arrays 👌🏻
-// 3. hard copy in first informative message for user 
-// 4. filter each location array based on const score between -2 to 2  👌🏻
-// 5. show on DOM (style) - with a window popping up effect, figure out all functionality:
-// 6. button to return to texting screen
-// 7. finish responsive testing 
-
 // an array of 100 restaurant results
 app.restaurants = [];
 
@@ -229,6 +221,45 @@ app.closeResults = function() {
 }
 
 app.endAnimation();
+
+app.shuffle = function (array) {
+	let currentIndex = array.length, temporaryValue, randomIndex;
+
+	while (currentIndex) {
+		randomIndex = Math.floor(Math.random() * currentIndex--);
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+	return array;
+}
+
+// use app.score to .text, and .attr (image) to the page using an if statement:
+app.recommendationsOnPage = function (score) {
+	// app.neighbourhoodChoice will return one of app.downtownToronto, app.eastEndToronto, app.westEndToronto, or app.northToronto
+	if (score < 0) {
+		// shuffles the contents of the array
+		app.shuffle(app.neighbourhoodChoice[0][0]);
+		// app.neighbourhoodChoice[0] - takes first item out of shuffled array
+		$('.results__option__image').attr('src', `${app.neighbourhoodChoice[0].featuredImage}`)
+		$('.restaurantName').text(`${app.neighbourhoodChoice[0].name}`);
+		$('.restaurantAddress').text(`${app.neighbourhoodChoice[0].address}`);
+		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0].userRating}`);
+		$('.btn').attr('href', `${app.neighbourhoodChoice[0].url}`);
+	} 
+	// else if (score === 0) {
+	// 	app.shuffle(app.neighbourhoodChoice[1][0])
+	// } else if (score > 0) {
+	// 	app.shuffle(app.neighbourhoodChoice[2][0])
+	// };
+};
+
+// 1. img class= "results__option__image" - featured Image
+// 2. h2 class = "restaurantName" 
+// 3. p class = "restaurantAddress"
+// 4. p class = "restaurantRating"
+// 5. input into anchor href the website URL
+
 
 app.init = function () {
 	app.calls();
