@@ -70,7 +70,7 @@ app.calls = function(number) {
 			start: number,
 		},
 		headers: {
-			"user-key": "ee3c8dde85aabb1ed3fc23bb743b2cc6",
+			"user-key": "6abd2ae7eb0a9857f87a37c0d6bdeff3",
 		},
 	});
 };
@@ -144,7 +144,26 @@ app.receiveCalls = function() {
             // end of for loop
 		});
 }
-let score = 0;
+app.score = 0;
+app.counter = 0;
+app.neighbourhoodChoice = '';
+app.neighbourhoodEast = new RegExp('eas', 'i');
+app.neighbourhoodWest = new RegExp('wes', 'i');
+app.neighbourhoodDowntown = new RegExp('down', 'i');
+app.neighbourhoodNorth = new RegExp('nor', 'i');
+
+app.checkNeighbourhood = function(text) {
+	if (app.neighbourhoodEast.test(text)) {
+		app.neighbourhoodChoice = 'East';
+	} else if (app.neighbourhoodWest.test(text)) {
+		app.neighbourhoodChoice = 'West';
+	} else if (app.neighbourhoodDowntown.test(text)) {
+		app.neighbourhoodChoice = 'Downtown';
+	} else if (app.neighbourhoodNorth.test(text)) {
+		app.neighbourhoodChoice = 'North';
+	}
+	console.log(app.neighbourhoodChoice);
+}
 // getting sentiment score
 
 app.getSentimentScore = function(text) {
@@ -157,19 +176,49 @@ app.getSentimentScore = function(text) {
 		dataType: 'jsonp',
 	})
 	.then((res) => {
-		score = score + res.sentiment.score;
-		console.log(res.sentiment.score);
+		app.score = app.score + res.sentiment.score;
 	})
 }
 app.submit = function() {
 	$('form').on('submit', function (e) {
 		e.preventDefault();
 		let text = $('input[type=text]').val();
+		if (app.counter === 3) {
+			app.checkNeighbourhood(text);
+			$('input[type=submit]').prop('disabled',true);
+		}
 		app.getSentimentScore(text);
+		$('.list').append(`<li class="txtMsg paragraph">${text}</li>`)
 		$('input[type=text]').val('');
+		$('.animation').addClass('animate');
+		app.endAnimation();
 	});
 };
 // end of getting sentiment score
+
+// Function to call animation and track when it ends
+app.writeResponse = function(string) {
+	$('.animation').removeClass('animate');
+	$('.list').append(`<li class="txtMsg paragraph">${string}?</li>`);
+	app.counter = app.counter + 1;
+}
+app.endAnimation = function() {
+	$('.circle-last').one('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function () {
+		if (app.counter === 0) {
+		app.writeResponse('You ready for your taco date tonight')
+		}	else if (app.counter === 1){
+			app.writeResponse(`You're taking what's-their-face right? What did their last text say`)
+		} else if (app.counter === 2) {
+			app.writeResponse('Are you thinking <form><label for="west">West End</label>, <label for="east">East End</label>, <label for="downtown">Downtown</label>, or <label for="north"> North </label>');
+		} else {
+			app.writeResponse('<a class="btn" href="#"> Show Suggestions </a>');
+			$('.animation').css('display', 'none');
+		}
+	});
+}
+
+
+app.endAnimation();
 
 app.init = function () {
 	app.calls();
