@@ -137,7 +137,7 @@ app.receiveCalls = function() {
 		});
 }
 app.score = 0;
-app.counter = 0;
+app.counter = 2;
 app.neighbourhoodChoice = '';
 app.neighbourhoodEast = new RegExp('eas', 'i');
 app.neighbourhoodWest = new RegExp('wes', 'i');
@@ -146,13 +146,13 @@ app.neighbourhoodNorth = new RegExp('nor', 'i');
 
 app.checkNeighbourhood = function(text) {
 	if (app.neighbourhoodEast.test(text)) {
-		app.neighbourhoodChoice = 'East';
+		app.neighbourhoodChoice = app.eastEndToronto;
 	} else if (app.neighbourhoodWest.test(text)) {
-		app.neighbourhoodChoice = 'West';
+		app.neighbourhoodChoice = app.westEndToronto;
 	} else if (app.neighbourhoodDowntown.test(text)) {
-		app.neighbourhoodChoice = 'Downtown';
+		app.neighbourhoodChoice = app.downtownToronto;
 	} else if (app.neighbourhoodNorth.test(text)) {
-		app.neighbourhoodChoice = 'North';
+		app.neighbourhoodChoice = app.northToronto;
 	}
 	console.log(app.neighbourhoodChoice);
 }
@@ -203,9 +203,20 @@ app.endAnimation = function() {
 		} else if (app.counter === 2) {
 			app.writeResponse('Are you thinking <form><label for="west">West End</label>, <label for="east">East End</label>, <label for="downtown">Downtown</label>, or <label for="north"> North </label>');
 		} else {
-			app.writeResponse('<a class="btn" href="#"> Show Suggestions </a>');
+			app.writeResponse('<a class="btn btn--results" href="#"> Show Suggestions </a>');
 			$('.animation').css('display', 'none');
+			app.showResults();
 		}
+	});
+}
+app.showResults = function() {
+	$('.btn--results').on('click', function () {
+		$('.results').css('display','flex');
+	})
+}
+app.closeResults = function() {
+	$('.btn--close').on('click', function() {
+		$('.results').css('display','none');
 	});
 }
 
@@ -253,7 +264,8 @@ app.recommendationsOnPage = function (score) {
 app.init = function () {
 	app.calls();
 	app.receiveCalls();
-  	app.submit(); 
+	app.submit();
+	app.closeResults(); 
 }
 
 $(function () {
