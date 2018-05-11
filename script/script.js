@@ -63,7 +63,7 @@ app.calls = function(number) {
 			start: number,
 		},
 		headers: {
-			"user-key": "ee3c8dde85aabb1ed3fc23bb743b2cc6",
+			"user-key": "6abd2ae7eb0a9857f87a37c0d6bdeff3",
 		},
 	});
 };
@@ -121,10 +121,24 @@ app.submit = function() {
 		e.preventDefault();
 		let text = $('input[type=text]').val();
 		app.getSentimentScore(text);
+		$('.list').append(`<li class="txtMsg paragraph">${text}</li>`)
 		$('input[type=text]').val('');
+		$('.animation').addClass('animate');
+		app.endAnimation();
 	});
 };
 // end of getting sentiment score
+
+// Function to call animation and track when it ends
+app.endAnimation = function() {
+	$('.circle-last').one('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function () {
+		$('.animation').removeClass('animate');
+		console.log('the animation ended');
+		$('.list').append(`<li class="txtMsg paragraph">some words</li>`);		
+	});
+}
+
+app.endAnimation();
 
 app.init = function () {
 	app.calls();
