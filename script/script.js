@@ -217,11 +217,15 @@ app.endAnimation = function() {
 		}
 	});
 }
-
 app.showResults = function() {
 	$('.btn--results').on('click', function () {
 		$('.results').css('display','flex');
 	})
+}
+app.closeResults = function() {
+	$('.btn--close').on('click', function() {
+		$('.results').css('display','none');
+	});
 }
 
 app.endAnimation();
@@ -229,7 +233,8 @@ app.endAnimation();
 app.init = function () {
 	app.calls();
 	app.receiveCalls();
-  	app.submit(); 
+	app.submit();
+	app.closeResults(); 
 }
 
 $(function () {
