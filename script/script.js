@@ -6,47 +6,54 @@ app.returnFromZomato = [];
 
 // 1. do 5 calls 👌🏻
 // 2. use Ky's list to filter from app.restaurants into the four location arrays 👌🏻
-// 3. hard copy in first informative message for user
-// 4. filter each location array based on positive, negative, neutral (based on price range - $, $$, $$$)
+// 3. hard copy in first informative message for user 
+// 4. filter each location array based on const score between -2 to 2  👌🏻
 // 5. show on DOM (style) - with a window popping up effect, figure out all functionality:
-// - featured_image
-//     - Name of restaurant
-//         - Address
-//         - Phone number
-//         - URL (button to link to the website_URL)
-//         - **user_rating … aggregate_rating
 // 6. button to return to texting screen
 // 7. finish responsive testing 
 
 // an array of 100 restaurant results
 app.restaurants = [];
+
 // filtered array
-app.downtownToronto = [];
+app.downtownToronto = [ [], [], [] ];
+
 // downtown is the variable that holds the regex for filtering
 const downtown = new RegExp('Entertainment|Kensington|Fashion|Grange|Downtown|Church|Financial', 'gi');
+
 // filtered array
-app.eastEndToronto = [];
+app.eastEndToronto = [ [], [], [] ];
+
 // eastEnd is the variable that holds the regex for filtering
 const eastEnd = new RegExp('Distillery|East|Lawrence|Beaches|Riverside', 'gi');
+
 // filtered array
-app.westEndToronto = [];
+app.westEndToronto = [ [], [], [] ];
+
 // westEnd is the variable that holds the regex for filtering
 const westEnd = new RegExp('Brockton|Parkdale|Junction|Chinatown|Bloor West Village|Italy|Annex|Liberty|Dufferin|Runnymede|Seaton|Trinity|Beaconsfield|Roncesvalles', 'gi');
+
 // filtered array
-app.northToronto = [];
+app.northToronto = [ [], [], [] ];
+
+// northEnd is the variable that holds the regex for filtering
 const northEnd = new RegExp('Hillcrest|Eglinton|Earlscourt|Davisville|York', 'gi');
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class Restaurant {
-	constructor(featuredImage, name, address, url, userRating) {
+	constructor(featuredImage, name, address, url, userRating, priceRange) {
         this.featuredImage = featuredImage;
 		this.name = name;
 		this.address = address;
 		this.url = url;
-		this.userRating = userRating;
+        this.userRating = userRating;
+        this.priceRange = priceRange;
 	}
 }
 app.filteredRestaurants = function (array, array2) {
     array.push
-        (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating)) 
+        (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating, array2.restaurant.price_range)) 
 }
 
 app.calls = function(number) {
@@ -84,24 +91,62 @@ app.receiveCalls = function() {
 				}
             // console.log(app.restaurants);
             for (let i = 0; i < app.restaurants.length; i++) {
-                if (downtown.test(app.restaurants[i].restaurant.location.locality)) {
-                    // if the values in the regex match to the values in locality in app.restaurants then push to ...
-                    app.filteredRestaurants(app.downtownToronto, app.restaurants[i]);
-                } else if (eastEnd.test(app.restaurants[i].restaurant.location.locality)) {
-                    app.filteredRestaurants(app.eastEndToronto, app.restaurants[i])
-                } else if (westEnd.test(app.restaurants[i].restaurant.location.locality)) {
-                    app.filteredRestaurants(app.westEndToronto, app.restaurants[i])
-                } else if (northEnd.test(app.restaurants[i].restaurant.location.locality)) {
-                    app.filteredRestaurants(app.northToronto, app.restaurants[i])
-                }
+
+                if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.downtownToronto[0], app.restaurants[i]);
+				} 
+				
+				else if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.downtownToronto[1], app.restaurants[i]);
+				} 
+				
+				else if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.downtownToronto[2], app.restaurants[i]);
+				} 
+				
+				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.eastEndToronto[0], app.restaurants[i]);
+				} 
+				
+				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.eastEndToronto[1], app.restaurants[i]);
+				}
+
+				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.eastEndToronto[2], app.restaurants[i]);
+				}
+
+				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.westEndToronto[0], app.restaurants[i]);
+				}
+
+				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.westEndToronto[1], app.restaurants[i]);
+				}
+
+				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.westEndToronto[2], app.restaurants[i]);
+				}
+
+				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.northToronto[0], app.restaurants[i]);
+				}
+
+				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.northToronto[1], app.restaurants[i]);
+				}
+
+				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.northToronto[2], app.restaurants[i]);
+				}
                 // end of if statement
             }
             // end of for loop
-            // console.log(app.northToronto);
 		});
 }
 let score = 0;
 // getting sentiment score
+
 app.getSentimentScore = function(text) {
 	$.ajax({
 		url: 'https://api.dandelion.eu/datatxt/sent/v1',	
@@ -129,8 +174,9 @@ app.submit = function() {
 app.init = function () {
 	app.calls();
 	app.receiveCalls();
-  app.submit(); 
+  	app.submit(); 
 }
+
 $(function () {
 	app.init();
 });
