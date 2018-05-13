@@ -19,12 +19,20 @@ body {
 .header2 {
 	@include fontSize(40);
 	text-align: center;
-	// text-transform: lowercase;
+}
+.header3 {
+	@include fontSize(20);
+	text-align: center;
+	margin: 0;
 }
 .paragraph {
 	font-size: 1.6rem;
 	line-height: 1.7;
 	letter-spacing: 1px;
+	&--small {
+		@include fontSize(13);
+		line-height: 1.4;
+	}
 }
 .input {
 	font-size: 1.6rem;
