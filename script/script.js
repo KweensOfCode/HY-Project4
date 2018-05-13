@@ -299,7 +299,7 @@ app.recommendationsOnPage = function() {
 		} 
 		// end of score < 0
 		
-		else if (score === 0) {
+		else if (app.score === 0) {
 		// ----- first section targets the first restaurant recommendation ----- 
 		$('.image1').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
 		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
@@ -318,7 +318,7 @@ app.recommendationsOnPage = function() {
 		} 
 		// end of score === 0
 
-		else if (score > 0) {
+		else if (app.score > 0) {
 		// ----- first section targets the first restaurant recommendation ----- 
 		$('.image1').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
 		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
@@ -336,7 +336,7 @@ app.recommendationsOnPage = function() {
 		// ---- end of second section reco ----
 		};
 		// end of score > 0
-};
+}
 // end of recommendationsOnPage function
 
 app.init = function () {
