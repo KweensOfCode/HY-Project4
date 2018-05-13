@@ -299,7 +299,7 @@ app.recommendationsOnPage = function() {
 		} 
 		// end of score < 0
 		
-		else if (app.score === 0) {
+		else if (app.score === 0 && app.neighbourhoodChoice[1].length > 2) {
 		// ----- first section targets the first restaurant recommendation ----- 
 		$('.image1').attr('src', app.neighbourhoodChoice[1][0].featuredImage)
 		$('.restaurantName').text(app.neighbourhoodChoice[1][0].name);
@@ -318,7 +318,7 @@ app.recommendationsOnPage = function() {
 		} 
 		// end of score === 0
 
-		else if (app.score > 0) {
+		else if (app.score > 0 && app.neighbourhoodChoice[2].length > 2) {
 		// ----- first section targets the first restaurant recommendation ----- 
 		$('.image1').attr('src', app.neighbourhoodChoice[2][0].featuredImage)
 		$('.restaurantName').text(app.neighbourhoodChoice[2][0].name);
@@ -336,7 +336,23 @@ app.recommendationsOnPage = function() {
 		// ---- end of second section reco ----
 		}
 		// end of score > 0
-};
+		else {
+		// ----- first section targets the first restaurant recommendation ----- 
+		$('.image1').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
+		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
+		$('.restaurantAddress').text(app.neighbourhoodChoice[0][0].address);
+		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0][0].userRating}`);
+		$('.restaurantURL').attr('href', app.neighbourhoodChoice[0][0].url);
+		// ----- end of first section reco -----
+		// ----- second section targets the second restaurant recommendation ----
+		$('.image2').attr('src', app.neighbourhoodChoice[0][1].featuredImage)
+		$('.restaurantName2').text(app.neighbourhoodChoice[0][1].name);
+		$('.restaurantAddress2').text(app.neighbourhoodChoice[0][1].address);
+		$('.restaurantRating2').text(`Rating: ${app.neighbourhoodChoice[0][1].userRating}`);
+		$('.restaurantURL2').attr('href', app.neighbourhoodChoice[0][1].url);
+		// ---- end of second section reco ----
+		}
+}
 // end of recommendationsOnPage function
 
 app.init = function () {
