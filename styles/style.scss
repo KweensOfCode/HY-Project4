@@ -5,11 +5,13 @@
 body {
   background-image: linear-gradient(to bottom, rgba(212, 81, 19,0.5) 20%, rgba(212, 81,19,0.7)),url('../images/brickwall_@2X.png');
 }
-
-img { 
-  max-width: 200px;
+img {
+  max-width: 300px;
+  @media (max-width: $second-breakpoint){
+    max-width: 200px;
+  }
 }
-
+// 01 - Main Wrapper
 .wrapper {
   max-width: 1600px;
   height: 100vh;
@@ -17,18 +19,23 @@ img {
   flex-direction: row;
   align-items: center;
   margin: 0 auto;
+  position: relative;
 }
+// 02 - Main Title
 .mainHeader {
-  position: fixed;
+  position: absolute;
   color: $orange;
-  right: 0;
   top: 50px;
   transform: rotate(180deg);
-  left: 25px;
+  left: 0px;
   bottom: 50px;
+  @media (max-width: $second-breakpoint) {
+    display: none;
+  }
 }
+// 03 - Contact Name
 .innerWrapper {
-  width: 40%;
+  width: 600px;
   margin: 0 auto;
   background: white;
   height: 90vh;
@@ -36,11 +43,18 @@ img {
   box-shadow: 0 0 5px 1px $white;
   position: relative;
   overflow-y: auto;
+  @media (max-width: $first-breakpoint) {
+    width: 500px;
+  }
+  @media (max-width: $third-breakpoint) {
+    width: 100%;
+    height: 100vh;
+  }
 }
 .contactHeader {
   background: rgba(248, 221, 164,0.6);
   position: fixed;
-  width: 40%;
+  width: 600px;
   margin: 0 auto;
   top: 5vh;
   left: 50%;
@@ -49,7 +63,15 @@ img {
   margin: 0;
   padding: 20px;
   z-index: 999;
+  @media (max-width: $first-breakpoint) {
+    width: 500px;
+  }
+  @media (max-width: $third-breakpoint) {
+    width: 100%;
+    top: 0;
+  }
 }
+// 05. Text Message Screen 
 .text {
   position: relative;
 }
@@ -61,23 +83,26 @@ img {
   width: 60%;
   background: $orange;
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   margin: 10px;
   color:$white;
+  position: relative;
   &:nth-child(2n) {
     background: lighten($yellow, 20);
     color: $black;
     position: relative;
     left: 150px;
+    @media (max-width: $third-breakpoint) {
+      left: 50px;
+    }
   }
-}
-.response {
-  opacity: 0;
+  @media (max-width: $third-breakpoint) {
+    width: 80%;
+  }
 }
 .animation {
   background: rgba(249, 160, 63,0.5);
   width: 10%;
-  display: flex;
   justify-content: space-around;
   padding: 10px 20px;
   border-radius: 50px;
@@ -93,30 +118,40 @@ img {
   }
   &.animate {
     display: flex;
-    & .fa {
+    & .fa-circle:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+    & .fa-circle:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    & .fa-circle {
     animation: writing 1.2s 3;
     text-shadow: 0 0 5px $white;
     }
-    & .fa:nth-child(2) {
-    animation-delay: 0.3s;
-    }
-    & .fa:nth-child(3) {
-      animation-delay: 0.6s;
-    }
+  }
+  @media (max-width: $second-breakpoint) {
+    width: 150px;
   }
 }
-.userInput {
+.userInput, .btn--reset {
   position: fixed;
   bottom: 5vh;
   display: flex;
-  width: 40%;
+  width: 600px;
   padding: 20px 10px;
-  background: rgba(248, 221, 164,0.6);  
+  background: rgba(248, 221, 164,0.6); 
+  @media (max-width: $first-breakpoint) {
+    width: 500px;
+  } 
+  @media (max-width: $third-breakpoint) {
+    width: 100%;
+    bottom: 0;
+  }
 }
 .submitBtn {
   background: $red;
-  border: 2px solid $red;
-  background: $red;
+  border: 2px solid $orange;
+  background: $orange;
   color: $white;
   border-radius: 50%;
   padding: 20px 15px;
@@ -128,9 +163,9 @@ img {
   border: 1px solid rgba(0,0,0,0.4);
   padding: 10px 20px;
 }
-.results {
+.results, .info {
   position: fixed;
-  width: 40%;
+  width: 600px;
   top: 5vh;
   bottom: 5vh;
   margin: 0 auto;
@@ -138,7 +173,7 @@ img {
   background: $white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   flex-flow: column nowrap;
   display: none;
   &__option {
@@ -149,7 +184,6 @@ img {
     align-items: center;
     &__image {
       border: 5px solid $orange;
-      // border-radius: 50%;
       margin: 10px 20px;
       flex: 0 0 auto;
     }
@@ -160,18 +194,57 @@ img {
       }
     }
   }
+  @media (max-width: $first-breakpoint) {
+    width: 500px;
+  } 
+  @media (max-width: $third-breakpoint) {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+  }
+}
+.info {
+  padding: 20px 30px;
+  justify-content: center;
+  align-items: center;
 }
 .btn {
   color: $white;
   background: $orange;
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 20px 23px;
   &--right{
     border-radius: 50%;
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 15px;
   }
+  &--results {
+    display: block;
+    border: 1px solid $white;
+    text-align: center;
+    margin-top: 10px;
+    background: lighten($orange, 30);
+  }
+  &--reset {
+    height: 110px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: $beige;
+    color: $black;
+  }
+  &--info {
+  position: absolute;
+  right: 15px;
+  border: 3px solid $orange;
+  padding: 0px 20px;
+  border-radius: 50%;
+  .fa-info {
+    position: relative;
+    bottom: 7px;
+  }
+}
 }
 @keyframes writing {
   0% {
