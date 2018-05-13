@@ -47,94 +47,94 @@ app.filteredRestaurants = function (array, array2) {
     array.push
         (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating, array2.restaurant.price_range)) 
 }
-// app.calls = function(number) {
-// 	return $.ajax({
-// 		url: "https://developers.zomato.com/api/v2.1/search",
-// 		dataType: "json",
-// 		method: "GET",
-// 		data: {
-// 			entity_id: 89,
-// 			entity_type: "city",
-// 			q: "Toronto",
-// 			cuisines: "73",
-// 			counter: 125,
-// 			start: number,
-// 		},
-// 		headers: {
-// 			"user-key": "6abd2ae7eb0a9857f87a37c0d6bdeff3",
-// 		},
-// 	});
-// };
-// app.receiveCalls = function() {
-// // call to API happening five times, pushing promises to returnFromZomato each time
-// 	for (let i = 0; i <= 80; i = i + 20) {
-// 		app.returnFromZomato.push(app.calls(i));
-//     }
-//     // console.log(app.returnFromZomato);
-//     // when the results from the calls are pushed...
-// 		$.when(...app.returnFromZomato)
-// 			.then((...results) => {
-// 				// console.log(...results);
-// 				for (let i = 0; i < results.length; i++) {
-// 					// console.log(results[i][0].restaurants);
-// 					// spread operator "takes off the brackets" and gives us the individual objects
-// 					app.restaurants.push(...results[i][0].restaurants);
-// 				}
-//             // console.log(app.restaurants);
-//             for (let i = 0; i < app.restaurants.length; i++) {
+app.calls = function(number) {
+	return $.ajax({
+		url: "https://developers.zomato.com/api/v2.1/search",
+		dataType: "json",
+		method: "GET",
+		data: {
+			entity_id: 89,
+			entity_type: "city",
+			q: "Toronto",
+			cuisines: "73",
+			counter: 125,
+			start: number,
+		},
+		headers: {
+			"user-key": "6abd2ae7eb0a9857f87a37c0d6bdeff3",
+		},
+	});
+};
+app.receiveCalls = function() {
+// call to API happening five times, pushing promises to returnFromZomato each time
+	for (let i = 0; i <= 80; i = i + 20) {
+		app.returnFromZomato.push(app.calls(i));
+    }
+    // console.log(app.returnFromZomato);
+    // when the results from the calls are pushed...
+		$.when(...app.returnFromZomato)
+			.then((...results) => {
+				// console.log(...results);
+				for (let i = 0; i < results.length; i++) {
+					// console.log(results[i][0].restaurants);
+					// spread operator "takes off the brackets" and gives us the individual objects
+					app.restaurants.push(...results[i][0].restaurants);
+				}
+            // console.log(app.restaurants);
+            for (let i = 0; i < app.restaurants.length; i++) {
 
-// 					if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
-// 					app.filteredRestaurants(app.downtownToronto[0], app.restaurants[i]);
-// 				} 
+					if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.downtownToronto[0], app.restaurants[i]);
+				} 
 				
-// 				else if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
-// 					app.filteredRestaurants(app.downtownToronto[1], app.restaurants[i]);
-// 				} 
+				else if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.downtownToronto[1], app.restaurants[i]);
+				} 
 				
-// 				else if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
-// 					app.filteredRestaurants(app.downtownToronto[2], app.restaurants[i]);
-// 				} 
+				else if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.downtownToronto[2], app.restaurants[i]);
+				} 
 				
-// 				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
-// 					app.filteredRestaurants(app.eastEndToronto[0], app.restaurants[i]);
-// 				} 
+				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.eastEndToronto[0], app.restaurants[i]);
+				} 
 				
-// 				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
-// 					app.filteredRestaurants(app.eastEndToronto[1], app.restaurants[i]);
-// 				}
+				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.eastEndToronto[1], app.restaurants[i]);
+				}
 
-// 				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
-// 					app.filteredRestaurants(app.eastEndToronto[2], app.restaurants[i]);
-// 				}
+				else if (eastEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.eastEndToronto[2], app.restaurants[i]);
+				}
 
-// 				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
-// 					app.filteredRestaurants(app.westEndToronto[0], app.restaurants[i]);
-// 				}
+				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.westEndToronto[0], app.restaurants[i]);
+				}
 
-// 				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
-// 					app.filteredRestaurants(app.westEndToronto[1], app.restaurants[i]);
-// 				}
+				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.westEndToronto[1], app.restaurants[i]);
+				}
 
-// 				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
-// 					app.filteredRestaurants(app.westEndToronto[2], app.restaurants[i]);
-// 				}
+				else if (westEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.westEndToronto[2], app.restaurants[i]);
+				}
 
-// 				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
-// 					app.filteredRestaurants(app.northToronto[0], app.restaurants[i]);
-// 				}
+				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					app.filteredRestaurants(app.northToronto[0], app.restaurants[i]);
+				}
 
-// 				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
-// 					app.filteredRestaurants(app.northToronto[1], app.restaurants[i]);
-// 				}
+				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 2)) {
+					app.filteredRestaurants(app.northToronto[1], app.restaurants[i]);
+				}
 
-// 				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
-// 					app.filteredRestaurants(app.northToronto[2], app.restaurants[i]);
-// 				}
-//                 // end of if statement
-//             }
-//             // end of for loop
-// 		});
-// }
+				else if (northEnd.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 3)) {
+					app.filteredRestaurants(app.northToronto[2], app.restaurants[i]);
+				}
+                // end of if statement
+            }
+            // end of for loop
+		});
+}
 // Lets the user bring up the information page
 app.info = function () {
 	$('.btn--info').on('click', function () {
@@ -150,7 +150,7 @@ app.closeResults = function () {
 // Creating the sentiment score that will be updated as users provide inputs
 app.score = 0;
 // Counter that keeps track of how many times the user has submitted an answer
-app.counter = 3;
+app.counter = 0;
 // Creating an empty variable that will eventually store the neighbourbourhood a user selected. 
 app.neighbourhoodChoice = '';
 // Regular expressions that check the users input against possible neighbourhoods
@@ -298,8 +298,8 @@ app.recommendationsOnPage = function() {
 // 5. input into anchor href the website URL
 
 app.init = function () {
-	// app.calls();
-	// app.receiveCalls();
+	app.calls();
+	app.receiveCalls();
 	app.submit();
 	app.closeResults(); 
 	app.info();
