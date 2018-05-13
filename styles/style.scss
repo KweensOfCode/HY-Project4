@@ -176,7 +176,7 @@ img {
   align-items: center;
   justify-content: space-around;
   flex-flow: column nowrap;
-  // display: none;
+  display: none;
   &__option {
     display: flex;
     flex-direction: column;
@@ -268,11 +268,9 @@ img {
   }
   75% {
     bottom: 4px;
-    // top: 0
   }
   100% {
     transform: scale(1);
     top: 0;
-    // bottom: 0;
   }
 }
