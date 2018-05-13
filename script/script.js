@@ -148,9 +148,9 @@ app.closeResults = function () {
 	});
 }
 // Creating the sentiment score that will be updated as users provide inputs
-app.score = 1;
+app.score = 0;
 // Counter that keeps track of how many times the user has submitted an answer
-app.counter = 2;
+app.counter = 0;
 // Creating an empty variable that will eventually store the neighbourbourhood a user selected. 
 app.neighbourhoodChoice = '';
 // Regular expressions that check the users input against possible neighbourhoods
