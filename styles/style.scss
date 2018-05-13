@@ -188,7 +188,7 @@ img {
       flex: 0 0 auto;
     }
     &__text {
-      flex:1 0 auto;
+      flex: 1 0 150px;
       &--right {
         text-align: right;
       }
@@ -219,7 +219,7 @@ img {
     top: 20px;
     right: 15px;
   }
-  &--results {
+  &--displayResults {
     display: block;
     border: 1px solid $white;
     text-align: center;
@@ -240,11 +240,14 @@ img {
   border: 3px solid $orange;
   padding: 0px 20px;
   border-radius: 50%;
-  .fa-info {
-    position: relative;
-    bottom: 7px;
+    .fa-info {
+      position: relative;
+      bottom: 7px;
+    }
   }
-}
+  &--results {
+    padding: 10px 15px;
+  }
 }
 @keyframes writing {
   0% {
