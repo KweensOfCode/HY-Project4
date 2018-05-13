@@ -47,7 +47,6 @@ app.filteredRestaurants = function (array, array2) {
     array.push
         (new Restaurant (array2.restaurant.featured_image, array2.restaurant.name, array2.restaurant.location.address, array2.restaurant.url,array2.restaurant.user_rating.aggregate_rating, array2.restaurant.price_range)) 
 }
-
 app.calls = function(number) {
 	return $.ajax({
 		url: "https://developers.zomato.com/api/v2.1/search",
@@ -84,7 +83,7 @@ app.receiveCalls = function() {
             // console.log(app.restaurants);
             for (let i = 0; i < app.restaurants.length; i++) {
 
-                if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
+					if (downtown.test(app.restaurants[i].restaurant.location.locality) && (app.restaurants[i].restaurant.price_range === 1)) {
 					app.filteredRestaurants(app.downtownToronto[0], app.restaurants[i]);
 				} 
 				
@@ -136,14 +135,31 @@ app.receiveCalls = function() {
             // end of for loop
 		});
 }
+// Lets the user bring up the information page
+app.info = function () {
+	$('.btn--info').on('click', function () {
+		$('.info').css('display', 'flex');
+	});
+}
+// Lets the user close either the info section or the recommendations button
+app.closeResults = function () {
+	$('.btn--close').on('click', function () {
+		$(this).parent().css('display', 'none');
+	});
+}
+// Creating the sentiment score that will be updated as users provide inputs
 app.score = 0;
-app.counter = 2;
+// Counter that keeps track of how many times the user has submitted an answer
+app.counter = 0;
+// Creating an empty variable that will eventually store the neighbourbourhood a user selected. 
 app.neighbourhoodChoice = '';
+// Regular expressions that check the users input against possible neighbourhoods
 app.neighbourhoodEast = new RegExp('eas', 'i');
 app.neighbourhoodWest = new RegExp('wes', 'i');
 app.neighbourhoodDowntown = new RegExp('down', 'i');
 app.neighbourhoodNorth = new RegExp('nor', 'i');
 
+// Function to check user's input against possible neighbourhoods. 
 app.checkNeighbourhood = function(text) {
 	if (app.neighbourhoodEast.test(text)) {
 		app.neighbourhoodChoice = app.eastEndToronto;
@@ -153,12 +169,11 @@ app.checkNeighbourhood = function(text) {
 		app.neighbourhoodChoice = app.downtownToronto;
 	} else if (app.neighbourhoodNorth.test(text)) {
 		app.neighbourhoodChoice = app.northToronto;
-	}
-	console.log(app.neighbourhoodChoice);
+	} 
 }
-// getting sentiment score
-
+// Function that gets sentiment score
 app.getSentimentScore = function(text) {
+	// Makes the call to the API with the text
 	$.ajax({
 		url: 'https://api.dandelion.eu/datatxt/sent/v1',	
 		data: {
@@ -167,61 +182,84 @@ app.getSentimentScore = function(text) {
 		},
 		dataType: 'jsonp',
 	})
+	// Updates the score variable with the current score
 	.then((res) => {
 		app.score = app.score + res.sentiment.score;
 	})
 }
+// Tracks when the user clicks the submit button
 app.submit = function() {
 	$('form').on('submit', function (e) {
 		e.preventDefault();
-		let text = $('input[type=text]').val();
-		if (app.counter === 3) {
-			app.checkNeighbourhood(text);
-			$('input[type=submit]').prop('disabled',true);
-		}
-		app.getSentimentScore(text);
-		$('.list').append(`<li class="txtMsg paragraph">${text}</li>`)
-		$('input[type=text]').val('');
-		$('.animation').addClass('animate');
+		// If user tries to submit without entering a value into the text box, this adds a red border to the text input
+		if ($('input[type=text]').val() === ''){
+			$('input[type=text]').css('border','3px solid red');
+		} else {
+		// This disables the submit button once the user enters a value, to ensure they only submit once
+		$('input[type=submit]').prop('disabled', true);
+		// Takes the text value from the user input
+		app.text = $('input[type=text]').val();
+		// Sends off text input to API to get sentiment score
+		app.getSentimentScore(app.text);
+		// Function that appends users input as text message on screen
+		app.populateText(app.text);
+		// Function that listens for when the writing animation ends and adds next hard-coded question to the screen. 
 		app.endAnimation();
+		// After the third question, this function checks the user's input for one of the localities.
+		if (app.counter === 3) {
+			app.checkNeighbourhood(app.text);
+		}
+		} 
 	});
 };
 // end of getting sentiment score
+app.populateText = function(text) {
+	$('.list').append(`<li class="txtMsg paragraph">${text}</li>`)
+	$('input[type=text]').val('');
+	$('.animation').addClass('animate');
+}
 
 // Function to call animation and track when it ends
 app.writeResponse = function(string) {
 	$('.animation').removeClass('animate');
-	$('.list').append(`<li class="txtMsg paragraph">${string}?</li>`);
+	$('.list').append(`<li class="txtMsg paragraph">${string}</li>`);
 	app.counter = app.counter + 1;
 }
+// Function to track when the dots animation ends to populate the page with feedback for user. 
 app.endAnimation = function() {
+	// Once the animation has finished running on the final dot, run this function
 	$('.circle-last').one('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function () {
+		// Turn on the submit button
+		$('input[type=submit]').prop('disabled', false);
+		// If this is the first time looping through it writes the first question
 		if (app.counter === 0) {
-		app.writeResponse('You ready for your taco date tonight')
+			app.writeResponse(`I know you still haven't decided where to go for that taco date tonight, but don't worry, you've come to the taco kween 👸🏻. First, tell me how you're feeling about this date.`)
+		// If this is the second time looping through it writes the second question
 		}	else if (app.counter === 1){
-			app.writeResponse(`You're taking what's-their-face right? What did their last text say`)
+			app.writeResponse(`That's real. And what about what's-their-face? What do have they have to say about it?`)
+		// If this is for the third time looping through it writes the third question
 		} else if (app.counter === 2) {
-			app.writeResponse('Are you thinking <form><label for="west">West End</label>, <label for="east">East End</label>, <label for="downtown">Downtown</label>, or <label for="north"> North </label>');
+			app.writeResponse(`Hmmmm. Intresting. <br> What part of the city are you thinking? East End, West End, Downtown, or (dare I say it) North?`);
+			// If this is the last time it will provide suggestions
 		} else {
-			app.writeResponse('<a class="btn btn--results" href="#"> Show Suggestions </a>');
+			app.writeResponse(`Well, based on what you've told me, I've pulled together a couple of solid suggestions for where you should go tonight. <a class="btn btn--results" href="#"> Show me the results </a>`);
 			$('.animation').css('display', 'none');
 			app.showResults();
+			app.recommendationsOnPage();
+			$('input[type=submit]').prop('disabled', true);
+			$('.btn--reset').css('display', 'flex');
 		}
 	});
 }
+// Sets up the click function for the "show recommendations" button
 app.showResults = function() {
 	$('.btn--results').on('click', function () {
 		$('.results').css('display','flex');
 	})
 }
-app.closeResults = function() {
-	$('.btn--close').on('click', function() {
-		$('.results').css('display','none');
-	});
-}
-
+// Runs the initial animation upon page load. 
 app.endAnimation();
-
+// Shuffles the items within an array
 app.shuffle = function (array) {
 	let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -235,17 +273,17 @@ app.shuffle = function (array) {
 }
 
 // use app.score to .text, and .attr (image) to the page using an if statement:
-app.recommendationsOnPage = function (score) {
-	// app.neighbourhoodChoice will return one of app.downtownToronto, app.eastEndToronto, app.westEndToronto, or app.northToronto
-	if (score < 0) {
+app.recommendationsOnPage = function() {
+// 	// app.neighbourhoodChoice will return one of app.downtownToronto, app.eastEndToronto, app.westEndToronto, or app.northToronto
+	if (app.score < 0) {
 		// shuffles the contents of the array
 		app.shuffle(app.neighbourhoodChoice[0][0]);
 		// app.neighbourhoodChoice[0] - takes first item out of shuffled array
-		$('.results__option__image').attr('src', `${app.neighbourhoodChoice[0].featuredImage}`)
-		$('.restaurantName').text(`${app.neighbourhoodChoice[0].name}`);
-		$('.restaurantAddress').text(`${app.neighbourhoodChoice[0].address}`);
-		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0].userRating}`);
-		$('.btn').attr('href', `${app.neighbourhoodChoice[0].url}`);
+		$('.results__option__image').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
+		$('.restaurantName')[0].text(app.neighbourhoodChoice[0][0].name);
+		$('.restaurantAddress')[0].text(`${app.neighbourhoodChoice[0][0].address}`);
+		$('.restaurantRating')[0].text(`Rating: ${app.neighbourhoodChoice[0].userRating}`);
+		$('.btn')[0].attr('href', `${app.neighbourhoodChoice[0].url}`);
 	} 
 	// else if (score === 0) {
 	// 	app.shuffle(app.neighbourhoodChoice[1][0])
@@ -253,19 +291,18 @@ app.recommendationsOnPage = function (score) {
 	// 	app.shuffle(app.neighbourhoodChoice[2][0])
 	// };
 };
-
 // 1. img class= "results__option__image" - featured Image
 // 2. h2 class = "restaurantName" 
 // 3. p class = "restaurantAddress"
 // 4. p class = "restaurantRating"
 // 5. input into anchor href the website URL
 
-
 app.init = function () {
 	app.calls();
 	app.receiveCalls();
 	app.submit();
 	app.closeResults(); 
+	app.info();
 }
 
 $(function () {
