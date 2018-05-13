@@ -5,6 +5,11 @@
 body {
   background-image: linear-gradient(to bottom, rgba(212, 81, 19,0.5) 20%, rgba(212, 81,19,0.7)),url('../images/brickwall_@2X.png');
 }
+
+img { 
+  max-width: 200px;
+}
+
 .wrapper {
   max-width: 1600px;
   height: 100vh;

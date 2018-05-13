@@ -136,7 +136,7 @@ app.receiveCalls = function() {
             // end of for loop
 		});
 }
-app.score = 0;
+app.score = -1;
 app.counter = 2;
 app.neighbourhoodChoice = '';
 app.neighbourhoodEast = new RegExp('eas', 'i');
@@ -206,6 +206,7 @@ app.endAnimation = function() {
 			app.writeResponse('<a class="btn btn--results" href="#"> Show Suggestions </a>');
 			$('.animation').css('display', 'none');
 			app.showResults();
+			app.recommendationsOnPage();
 		}
 	});
 }
@@ -237,15 +238,16 @@ app.shuffle = function (array) {
 // use app.score to .text, and .attr (image) to the page using an if statement:
 app.recommendationsOnPage = function (score) {
 	// app.neighbourhoodChoice will return one of app.downtownToronto, app.eastEndToronto, app.westEndToronto, or app.northToronto
-	if (score < 0) {
+	if (app.score < 0) {
 		// shuffles the contents of the array
+		// app.neighbourhoodChoice[0][0] - takes first item out of shuffled array
 		app.shuffle(app.neighbourhoodChoice[0][0]);
-		// app.neighbourhoodChoice[0] - takes first item out of shuffled array
-		$('.results__option__image').attr('src', `${app.neighbourhoodChoice[0].featuredImage}`)
-		$('.restaurantName').text(`${app.neighbourhoodChoice[0].name}`);
-		$('.restaurantAddress').text(`${app.neighbourhoodChoice[0].address}`);
-		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0].userRating}`);
-		$('.btn').attr('href', `${app.neighbourhoodChoice[0].url}`);
+		$('.results__option__image').attr('src', app.neighbourhoodChoice[0][0].featuredImage);
+		// add another line for the other image
+		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
+		$('.restaurantAddress').text(app.neighbourhoodChoice[0][0].address);
+		$('.restaurantRating').text('Rating: ' + app.neighbourhoodChoice[0][0].userRating);
+		$('.btn').attr('href', app.neighbourhoodChoice[0][0].url);
 	} 
 	// else if (score === 0) {
 	// 	app.shuffle(app.neighbourhoodChoice[1][0])
