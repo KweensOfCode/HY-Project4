@@ -239,7 +239,7 @@ app.endAnimation = function() {
 			app.writeResponse(`That's real. And what about what's-their-face? What do have they have to say about it?`)
 		// If this is for the third time looping through it writes the third question
 		} else if (app.counter === 2) {
-			app.writeResponse(`Hmmmm. Intresting. <br> What part of the city are you thinking? East End, West End, Downtown, or (dare I say it) North?`);
+			app.writeResponse(`Hmmmm. Interesting. <br> What part of the city are you thinking? East End, West End, Downtown, or (dare I say it) North?`);
 			// If this is the last time it will provide suggestions
 		} else {
 			app.writeResponse(`Well, based on what you've told me, I've pulled together a couple of solid suggestions for where you should go tonight. <a class="btn btn--results" href="#"> Show me the results </a>`);
@@ -275,28 +275,69 @@ app.shuffle = function (array) {
 // use app.score to .text, and .attr (image) to the page using an if statement:
 app.recommendationsOnPage = function() {
 // 	// app.neighbourhoodChoice will return one of app.downtownToronto, app.eastEndToronto, app.westEndToronto, or app.northToronto
-	if (app.score < 0) {
+		if (app.score < 0) {
 		// shuffles the contents of the array
 		// app.neighbourhoodChoice[0][0] - takes first item out of shuffled array
 		app.shuffle(app.neighbourhoodChoice[0][0]);
 		// app.neighbourhoodChoice[0] - takes first item out of shuffled array
-		$('.results__option__image').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
-		$('.restaurantName')[0].text(app.neighbourhoodChoice[0][0].name);
-		$('.restaurantAddress')[0].text(`${app.neighbourhoodChoice[0][0].address}`);
-		$('.restaurantRating')[0].text(`Rating: ${app.neighbourhoodChoice[0].userRating}`);
-		$('.btn')[0].attr('href', `${app.neighbourhoodChoice[0].url}`);
-	} 
-	// else if (score === 0) {
-	// 	app.shuffle(app.neighbourhoodChoice[1][0])
-	// } else if (score > 0) {
-	// 	app.shuffle(app.neighbourhoodChoice[2][0])
-	// };
+
+		// ----- first section targets the first restaurant recommendation ----- 
+		$('.image1').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
+		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
+		$('.restaurantAddress').text(app.neighbourhoodChoice[0][0].address);
+		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0][0].userRating}`);
+		$('.restaurantURL').attr('href', app.neighbourhoodChoice[0][0].url);
+		// ----- end of first section reco -----
+
+		// ----- second section targets the second restaurant recommendation ----
+		$('.image2').attr('src', app.neighbourhoodChoice[0][1].featuredImage)
+		$('.restaurantName2').text(app.neighbourhoodChoice[0][1].name);
+		$('.restaurantAddress2').text(app.neighbourhoodChoice[0][1].address);
+		$('.restaurantRating2').text(`Rating: ${app.neighbourhoodChoice[0][1].userRating}`);
+		$('.restaurantURL2').attr('href', app.neighbourhoodChoice[0][1].url);
+		// ---- end of second section reco ----
+		} 
+		// end of score < 0
+		
+		else if (score === 0) {
+		// ----- first section targets the first restaurant recommendation ----- 
+		$('.image1').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
+		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
+		$('.restaurantAddress').text(app.neighbourhoodChoice[0][0].address);
+		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0][0].userRating}`);
+		$('.restaurantURL').attr('href', app.neighbourhoodChoice[0][0].url);
+		// ----- end of first section reco -----
+
+		// ----- second section targets the second restaurant recommendation ----
+		$('.image2').attr('src', app.neighbourhoodChoice[0][1].featuredImage)
+		$('.restaurantName2').text(app.neighbourhoodChoice[0][1].name);
+		$('.restaurantAddress2').text(app.neighbourhoodChoice[0][1].address);
+		$('.restaurantRating2').text(`Rating: ${app.neighbourhoodChoice[0][1].userRating}`);
+		$('.restaurantURL2').attr('href', app.neighbourhoodChoice[0][1].url);
+		// ---- end of second section reco ----
+		} 
+		// end of score === 0
+
+		else if (score > 0) {
+		// ----- first section targets the first restaurant recommendation ----- 
+		$('.image1').attr('src', app.neighbourhoodChoice[0][0].featuredImage)
+		$('.restaurantName').text(app.neighbourhoodChoice[0][0].name);
+		$('.restaurantAddress').text(app.neighbourhoodChoice[0][0].address);
+		$('.restaurantRating').text(`Rating: ${app.neighbourhoodChoice[0][0].userRating}`);
+		$('.restaurantURL').attr('href', app.neighbourhoodChoice[0][0].url);
+		// ----- end of first section reco -----
+
+		// ----- second section targets the second restaurant recommendation ----
+		$('.image2').attr('src', app.neighbourhoodChoice[0][1].featuredImage)
+		$('.restaurantName2').text(app.neighbourhoodChoice[0][1].name);
+		$('.restaurantAddress2').text(app.neighbourhoodChoice[0][1].address);
+		$('.restaurantRating2').text(`Rating: ${app.neighbourhoodChoice[0][1].userRating}`);
+		$('.restaurantURL2').attr('href', app.neighbourhoodChoice[0][1].url);
+		// ---- end of second section reco ----
+		};
+		// end of score > 0
 };
-// 1. img class= "results__option__image" - featured Image
-// 2. h2 class = "restaurantName" 
-// 3. p class = "restaurantAddress"
-// 4. p class = "restaurantRating"
-// 5. input into anchor href the website URL
+// end of recommendationsOnPage function
 
 app.init = function () {
 	app.calls();
