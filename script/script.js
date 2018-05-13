@@ -242,7 +242,7 @@ app.endAnimation = function() {
 			app.writeResponse(`Hmmmm. Interesting. <br> What part of the city are you thinking? East End, West End, Downtown, or (dare I say it) North?`);
 			// If this is the last time it will provide suggestions
 		} else {
-			app.writeResponse(`Well, based on what you've told me, I've pulled together a couple of solid suggestions for where you should go tonight. <a class="btn btn--results" href="#"> Show me the results </a>`);
+			app.writeResponse(`Well, based on what you've told me, I've pulled together a couple of solid suggestions for where you should go tonight. <a class="btn btn--displayResults" href="#"> Show me the results </a>`);
 			$('.animation').css('display', 'none');
 			app.showResults();
 			app.recommendationsOnPage();
