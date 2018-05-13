@@ -11,6 +11,7 @@ img {
     max-width: 200px;
   }
 }
+// 01 - Main Wrapper
 .wrapper {
   max-width: 1600px;
   height: 100vh;
@@ -20,10 +21,10 @@ img {
   margin: 0 auto;
   position: relative;
 }
+// 02 - Main Title
 .mainHeader {
   position: absolute;
   color: $orange;
-  // right: 0;
   top: 50px;
   transform: rotate(180deg);
   left: 0px;
@@ -31,8 +32,8 @@ img {
   @media (max-width: $second-breakpoint) {
     display: none;
   }
-
 }
+// 03 - Contact Name
 .innerWrapper {
   width: 600px;
   margin: 0 auto;
@@ -70,6 +71,7 @@ img {
     top: 0;
   }
 }
+// 05. Text Message Screen 
 .text {
   position: relative;
 }
@@ -97,9 +99,6 @@ img {
   @media (max-width: $third-breakpoint) {
     width: 80%;
   }
-}
-.response {
-  opacity: 0;
 }
 .animation {
   background: rgba(249, 160, 63,0.5);
@@ -132,17 +131,6 @@ img {
   }
   @media (max-width: $second-breakpoint) {
     width: 150px;
-  }
-}
-.btn--info {
-  position: absolute;
-  right: 15px;
-  border: 3px solid $orange;
-  padding: 0px 20px;
-  border-radius: 50%;
-  .fa-info {
-    position: relative;
-    bottom: 7px;
   }
 }
 .userInput, .btn--reset {
@@ -185,7 +173,7 @@ img {
   background: $white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   flex-flow: column nowrap;
   display: none;
   &__option {
@@ -246,6 +234,17 @@ img {
     background-color: $beige;
     color: $black;
   }
+  &--info {
+  position: absolute;
+  right: 15px;
+  border: 3px solid $orange;
+  padding: 0px 20px;
+  border-radius: 50%;
+  .fa-info {
+    position: relative;
+    bottom: 7px;
+  }
+}
 }
 @keyframes writing {
   0% {

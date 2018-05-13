@@ -4,24 +4,36 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="styles/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+	<link rel="stylesheet" href="styles/style.css">
 	<title>Document</title>
 </head>
 <body>
+	<!-- 01 Main Wrapper -->
 	<main class="wrapper">
+		<!-- 02 - Main Title -->
 		<h1 class="header1 mainHeader">I Don't Wanna Taco 'Bout It</h1>
 		<div class="innerWrapper">
-			<!-- Contact Name -->
+			<!-- 03 - Contact Name -->
 			<div class="contactName">
 				<h2 class="contactHeader header2">🌮  <a class="btn--info" href="#"><i class="fa fa-info"></i></a></h2>
 			</div>
-			<!-- Text Message Screen -->
+			<!-- 04 - About Section -->
+			<div class="info">
+				<a href="#" class="btn btn--right btn--close">X</a>
+				<div class="info__text">
+					<h2 class="header2">I Don't Wanna Taco 'Bout It</h2>
+					<p class="paragraph">I Don't Wanna Taco 'Bout It was built by the Kweens of Code (Lindsay Power-Harding and Ky Capstick). It uses the Dandelion API for Semantic Text Analysis of the user's responses and the Zomato API to provide restaurant recommendations. It considers the user's cumulative sentiment score to present the user with recommendations of Mexican restaurants within a specific price range in a specific locality.</p>
+					<p class="copyright">&copy Lindsay Power-Harding and Ky Capstick 2018</p>
+				</div>
+			</div>
+			<!-- 05 - Text Message Screen -->
 			<div class="text">  
 				<ul class="list">
+					<!-- Empty list to be populated by JS -->
 				</ul>
-				<!-- CSS Animation of dots -->
+				<!-- 06 - Results Page -->
 				<div class="results">
 					<a href="#" class="btn btn--right btn--close">X</a>
 					<div class="results__option">
@@ -43,26 +55,19 @@
 						<img class="results__option__image" src="https://picsum.photos/200" alt="placeholder image">
 					</div>
 				</div>
-				<!-- end of div.results -->
-				<div class="info">
-					<a href="#" class="btn btn--right btn--close">X</a>
-					<div class="info__text">
-						<h2 class="header2">I Don't Wanna Taco 'Bout It</h2>
-						<p class="paragraph">I Don't Wanna Taco 'Bout It was built by the Kweens of Code (Lindsay Power-Harding and Ky Capstick). It uses the Dandelion API for Semantic Text Analysis of the user's responses and the Zomato API to provide restaurant recommendations. It considers the user's cumulative sentiment score to present the user with recommendations of Mexican restaurants within a specific price range in a specific locality.</p>
-						<p class="copyright">&copy Lindsay Power-Harding and Ky Capstick 2018</p>
-					</div>
-				</div>
+				<!-- 07 - CSS Animation of dots -->
 				<div class="animation animate">
 					<i class="fa fa-circle"></i>
 					<i class="fa fa-circle"></i>
 					<i class="fa fa-circle circle-last"></i>					
 				</div>
-				<!-- User Input at bottom of screen -->
+				<!-- 08 - User Input at bottom of screen -->
 				<form class="userInput" action="#">
 					<input class="input firstInput" type="text" placeholder="Write your text here">
 					<input class="submitBtn" type="submit" value="SEND" disabled="true">
 				</form>
 			</div>
+			<!-- 09 - Reset Button -->
 			<div>
 				<a href="index.html" class="btn btn--reset">Reset</a>
 			</div>
