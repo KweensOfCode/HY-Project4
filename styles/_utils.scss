@@ -6,6 +6,10 @@ $yellow: #f9a03f;
 $beige: #f8dda4;
 $red: #f40000;
 
+$first-breakpoint: 1500px;
+$second-breakpoint: 1400px;
+$third-breakpoint: 550px;
+
 @mixin fontSize ($sizeValue) {
 	font-size: $sizeValue * 1px;
 	font-size: $sizeValue/10 * 1rem;

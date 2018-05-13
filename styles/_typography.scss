@@ -7,7 +7,7 @@ body {
 .header1 {
 	writing-mode: vertical-rl;
 	text-transform: uppercase;
-	@include fontSize(100);
+	@include fontSize(90);
 	text-shadow: 1px 1px 20px $white,
 								2px 2px 0 $black,
 								3px 3px 0 $black,
@@ -17,17 +17,25 @@ body {
 								7px 7px 0 $red;
 }
 .header2 {
-	font-size: 4rem;
+	@include fontSize(40);
 	text-align: center;
-	text-transform: lowercase;
+	// text-transform: lowercase;
 }
 .paragraph {
 	font-size: 1.6rem;
-	line-height: 1.6;
+	line-height: 1.7;
+	letter-spacing: 1px;
 }
 .input {
 	font-size: 1.6rem;
 }
 .fa-circle {
 	@include fontSize(15);
+}
+.fa-info {
+	@include fontSize(18);
+	color: $orange;
+}
+.copyright {
+	text-align: right;
 }

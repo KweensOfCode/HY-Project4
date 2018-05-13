@@ -12,11 +12,10 @@
 <body>
 	<main class="wrapper">
 		<h1 class="header1 mainHeader">I Don't Wanna Taco 'Bout It</h1>
-		
 		<div class="innerWrapper">
 			<!-- Contact Name -->
 			<div class="contactName">
-				<h2 class="contactHeader header2">🌮</h2>
+				<h2 class="contactHeader header2">🌮  <a class="btn--info" href="#"><i class="fa fa-info"></i></a></h2>
 			</div>
 			<!-- Text Message Screen -->
 			<div class="text">  
@@ -26,7 +25,7 @@
 				<div class="results">
 					<a href="#" class="btn btn--right btn--close">X</a>
 					<div class="results__option">
-						<img class="results__option__image" src="https://picsum.photos/200" alt="placeholder image">
+						<img class="results__option__image image1" src="https://picsum.photos/200" alt="placeholder image">
 						<div class="results__option__text">
 							<h2 class="restaurantName">Restaurant Name</h2>
 							<p class="restaurantAddress">Restaurant Address</p>
@@ -36,7 +35,7 @@
 					</div>
 					<div class="results__option">
 						<div class="results__option__text results__option__text--right">
-							<h2 class="restaurantName--second">Restaurant Name</h2>
+							<h2 class="restaurantName">Restaurant Name</h2>
 							<p class="restaurantAddress">Restaurant Address</p>
 							<p>rating</p>
 							<a href="#" class="btn">Restaurant URL</a>
@@ -45,6 +44,14 @@
 					</div>
 				</div>
 				<!-- end of div.results -->
+				<div class="info">
+					<a href="#" class="btn btn--right btn--close">X</a>
+					<div class="info__text">
+						<h2 class="header2">I Don't Wanna Taco 'Bout It</h2>
+						<p class="paragraph">I Don't Wanna Taco 'Bout It was built by the Kweens of Code (Lindsay Power-Harding and Ky Capstick). It uses the Dandelion API for Semantic Text Analysis of the user's responses and the Zomato API to provide restaurant recommendations. It considers the user's cumulative sentiment score to present the user with recommendations of Mexican restaurants within a specific price range in a specific locality.</p>
+						<p class="copyright">&copy Lindsay Power-Harding and Ky Capstick 2018</p>
+					</div>
+				</div>
 				<div class="animation animate">
 					<i class="fa fa-circle"></i>
 					<i class="fa fa-circle"></i>
@@ -53,7 +60,7 @@
 				<!-- User Input at bottom of screen -->
 				<form class="userInput" action="#">
 					<input class="input firstInput" type="text" placeholder="Write your text here">
-					<input class="submitBtn" type="submit" value="SEND">
+					<input class="submitBtn" type="submit" value="SEND" disabled="true">
 				</form>
 			</div>
 		</div>
