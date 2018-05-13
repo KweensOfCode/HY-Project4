@@ -7,6 +7,9 @@ body {
 }
 img {
   max-width: 300px;
+  @media (max-width: $second-breakpoint){
+    max-width: 200px;
+  }
 }
 .wrapper {
   max-width: 1600px;
@@ -128,10 +131,7 @@ img {
     }
   }
   @media (max-width: $second-breakpoint) {
-    width: 30%;
-  }
-  @media (max-width: $third-breakpoint) {
-    width: 40%;
+    width: 150px;
   }
 }
 .btn--info {
@@ -145,7 +145,7 @@ img {
     bottom: 7px;
   }
 }
-.userInput {
+.userInput, .btn--reset {
   position: fixed;
   bottom: 5vh;
   display: flex;
@@ -237,6 +237,14 @@ img {
     text-align: center;
     margin-top: 10px;
     background: lighten($orange, 30);
+  }
+  &--reset {
+    height: 110px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: $beige;
+    color: $black;
   }
 }
 @keyframes writing {

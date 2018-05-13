@@ -135,15 +135,31 @@ app.filteredRestaurants = function (array, array2) {
 //             // end of for loop
 // 		});
 // }
-
+// Lets the user bring up the information page
+app.info = function () {
+	$('.btn--info').on('click', function () {
+		$('.info').css('display', 'flex');
+	});
+}
+// Lets the user close either the info section or the recommendations button
+app.closeResults = function () {
+	$('.btn--close').on('click', function () {
+		$(this).parent().css('display', 'none');
+	});
+}
+// Creating the sentiment score that will be updated as users provide inputs
 app.score = 0;
+// Counter that keeps track of how many times the user has submitted an answer
 app.counter = 0;
+// Creating an empty variable that will eventually store the neighbourbourhood a user selected. 
 app.neighbourhoodChoice = '';
+// Regular expressions that check the users input against possible neighbourhoods
 app.neighbourhoodEast = new RegExp('eas', 'i');
 app.neighbourhoodWest = new RegExp('wes', 'i');
 app.neighbourhoodDowntown = new RegExp('down', 'i');
 app.neighbourhoodNorth = new RegExp('nor', 'i');
 
+// Function to check user's input against possible neighbourhoods. 
 app.checkNeighbourhood = function(text) {
 	if (app.neighbourhoodEast.test(text)) {
 		app.neighbourhoodChoice = app.eastEndToronto;
@@ -154,7 +170,6 @@ app.checkNeighbourhood = function(text) {
 	} else if (app.neighbourhoodNorth.test(text)) {
 		app.neighbourhoodChoice = app.northToronto;
 	} 
-	console.log(app.neighbourhoodChoice);
 }
 // Function that gets sentiment score
 app.getSentimentScore = function(text) {
@@ -176,24 +191,33 @@ app.getSentimentScore = function(text) {
 app.submit = function() {
 	$('form').on('submit', function (e) {
 		e.preventDefault();
+		// If user tries to submit without entering a value into the text box, this adds a red border to the text input
 		if ($('input[type=text]').val() === ''){
 			$('input[type=text]').css('border','3px solid red');
 		} else {
+		// This disables the submit button once the user enters a value, to ensure they only submit once
 		$('input[type=submit]').prop('disabled', true);
-		// Takes the text value the user inputted
+		// Takes the text value from the user input
 		app.text = $('input[type=text]').val();
+		// Sends off text input to API to get sentiment score
+		app.getSentimentScore(app.text);
+		// Function that appends users input as text message on screen
+		app.populateText(app.text);
+		// Function that listens for when the writing animation ends and adds next hard-coded question to the screen. 
+		app.endAnimation();
+		// After the third question, this function checks the user's input for one of the localities.
 		if (app.counter === 3) {
 			app.checkNeighbourhood(app.text);
 		}
-		app.getSentimentScore(app.text);
-		$('.list').append(`<li class="txtMsg paragraph">${app.text}</li>`)
-		$('input[type=text]').val('');
-		$('.animation').addClass('animate');
-		app.endAnimation();
 		} 
 	});
 };
 // end of getting sentiment score
+app.populateText = function(text) {
+	$('.list').append(`<li class="txtMsg paragraph">${text}</li>`)
+	$('input[type=text]').val('');
+	$('.animation').addClass('animate');
+}
 
 // Function to call animation and track when it ends
 app.writeResponse = function(string) {
@@ -207,21 +231,23 @@ app.endAnimation = function() {
 	$('.circle-last').one('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function () {
 		// Turn on the submit button
 		$('input[type=submit]').prop('disabled', false);
-		// If this is the first time looping through
+		// If this is the first time looping through it writes the first question
 		if (app.counter === 0) {
-		app.writeResponse(`I know you still haven't decided where to go for that taco date tonight, but don't worry, you've come to the taco kween 👸🏻. First, tell me how you're feeling about this date.`)
-		// If this is the second time looping through
+			app.writeResponse(`I know you still haven't decided where to go for that taco date tonight, but don't worry, you've come to the taco kween 👸🏻. First, tell me how you're feeling about this date.`)
+		// If this is the second time looping through it writes the second question
 		}	else if (app.counter === 1){
-			app.writeResponse(`That's real. And what about what's-their-face? What have they said about tonight?`)
-		// If this is for the third time looping through
+			app.writeResponse(`That's real. And what about what's-their-face? What do have they have to say about it?`)
+		// If this is for the third time looping through it writes the third question
 		} else if (app.counter === 2) {
 			app.writeResponse(`Hmmmm. Intresting. <br> What part of the city are you thinking? East End, West End, Downtown, or (dare I say it) North?`);
+			// If this is the last time it will provide suggestions
 		} else {
 			app.writeResponse(`Well, based on what you've told me, I've pulled together a couple of solid suggestions for where you should go tonight. <a class="btn btn--results" href="#"> Show me the results </a>`);
 			$('.animation').css('display', 'none');
 			app.showResults();
 			app.recommendationsOnPage();
 			$('input[type=submit]').prop('disabled', true);
+			$('.btn--reset').css('display', 'flex');
 		}
 	});
 }
@@ -230,18 +256,6 @@ app.showResults = function() {
 	$('.btn--results').on('click', function () {
 		$('.results').css('display','flex');
 	})
-}
-// Let's the user bring up the information page
-app.info = function () {
-	$('.btn--info').on('click', function () {
-		$('.info').css('display', 'flex');
-	});
-}
-// Let's the user close either the info section or the recommendations button
-app.closeResults = function() {
-	$('.btn--close').on('click', function() {
-		$(this).parent().css('display','none');
-	});
 }
 // Runs the initial animation upon page load. 
 app.endAnimation();

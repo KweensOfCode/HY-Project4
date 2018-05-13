@@ -39,3 +39,6 @@ body {
 .copyright {
 	text-align: right;
 }
+.btn--reset {
+	@include fontSize(20)
+}
