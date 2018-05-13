@@ -6,7 +6,8 @@ body {
   background-image: linear-gradient(to bottom, rgba(212, 81, 19,0.5) 20%, rgba(212, 81,19,0.7)),url('../images/brickwall_@2X.png');
 }
 img {
-  max-width: 300px;
+  max-width: 100%;
+  max-height: 180px;
   @media (max-width: $second-breakpoint){
     max-width: 200px;
   }
@@ -175,9 +176,10 @@ img {
   align-items: center;
   justify-content: space-around;
   flex-flow: column nowrap;
-  display: none;
+  // display: none;
   &__option {
     display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
     padding: 0 20px;
